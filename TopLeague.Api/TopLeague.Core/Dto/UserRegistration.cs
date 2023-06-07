@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Dto
 {
-    internal class UserRegistration
+    public class UserRegistration
     {
         public string? FirstName { get; set; }
         public string? LastName{ get; set; }

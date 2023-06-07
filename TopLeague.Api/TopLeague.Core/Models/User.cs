@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Models
 {
-    internal class User:IdentityUser
+    public class User:IdentityUser
     {
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }
