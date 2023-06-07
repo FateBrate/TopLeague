@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Dto
 {
-    internal class UserLogin
+    public class UserLogin
     {
         [Required(ErrorMessage ="User name is required")]
         public string? UserName { get; set; }
