@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Options
 {
-    internal class JwtConfig
+    public class JwtConfig
     {
         public string? ValidIssuer { get; set; }
 
