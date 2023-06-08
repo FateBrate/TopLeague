@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +17,7 @@ using TopLeague.Core.Options;
 
 namespace TopLeague.Repository
 {
-    public class UserAuthentification : IUserAuthenticationRepository
+    public class UserAuthentification :IUserAuthenticationRepository
     {
         private readonly UserManager<User> userManager;
         public readonly IMapper mapper;
@@ -34,12 +34,14 @@ namespace TopLeague.Repository
             _configuration = configuration;
         }
 
+   
         public async Task<IdentityResult> RegisterUserAsync(UserRegistration userRegistration)
         {
             var user = mapper.Map<User>(userRegistration);
             var result = await userManager.CreateAsync(user, userRegistration.Password);
             return result;
         }
+
         public async Task<bool> ValidateUserAsync(UserLogin userLogin)
         {
             this.user = await this.userManager.FindByNameAsync(userLogin.UserName);
@@ -51,15 +53,15 @@ namespace TopLeague.Repository
             var signingCredentials = GetSingingCredentials();
             var claims = await GetClaims();
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
-            return new JwtSecurityTokenhandler.WriteToken(tokenOptions);
+            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
         }
 
-        private object GenerateTokenOptions(SigningCredentials? signingCredentials, List<Claim> claims)
+        private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var tokenOptions = new JwtSecurityToken(
-                issuer: this.JwtConfig.ValidIssuer,
-               audinece: this.JwtConfig.ValidAudience,
+               issuer: this.JwtConfig.ValidIssuer,
+               audience: this.JwtConfig.ValidAudience,
                claims: claims,
                expires: DateTime.Now.AddMinutes(Convert.ToDouble(JwtConfig.ExpiresIn)),
                signingCredentials: signingCredentials);
