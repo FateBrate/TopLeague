@@ -2,7 +2,7 @@
 
 namespace TopLeague.Mapping
 {
-    public class AutoMapper
+    public class AutoMapperConfig
     {
         public static IMapper CreateMapping()
         {
