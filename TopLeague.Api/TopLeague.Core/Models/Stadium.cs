@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Models
 {
-    public class Stadium
+    public class Stadium :BaseClass
     {
-        [Key]
-        public int StadiumId { get; set; }
         public string StadiumName { get; set; }
         public int Capacity { get; set; }
         public string Location { get; set; }
