@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Models
 {
-    public abstract class Person
+    public abstract class Person:BaseClass
     {
-        [Key]
-        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }

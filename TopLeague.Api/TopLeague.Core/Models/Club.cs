@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Models
 {
-    public class Club
+    public class Club:BaseClass
     {
-        [Key]
-        public int ClubId { get; set; }
         public string ClubName { get; set; }
         public string Country { get; set; }
         public string City { get; set; }       

@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace TopLeague.Core.Models
 {
-    public class League
+    public class League:BaseClass
     {
-        [Key]
-        public int LeagueId { get; set; }
         public string LeagueName { get; set; }
         public string Country { get; set; }
         public int Divison { get; set; }
-        public byte[] Logo { get; set; }
+        public byte[]? Logo { get; set; }
     }
 }
