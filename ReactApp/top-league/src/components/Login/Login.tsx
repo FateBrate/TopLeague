@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/authService";
 import "./Login.css";
+import { log } from "console";
 function Login() {
-  const [name, setUserName] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
-  function login() {
-    localStorage.setItem("user", name);
-    navigate("/");
-  }
   return (
     <div className="container">
       <form className="login-form">
@@ -31,11 +28,29 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <a href="">Forgot password ?</a>
-        <button className="btn btn-primary" onClick={login}>
+        <button className="btn btn-primary" onClick={handleLogin}>
           Login
         </button>
       </form>
     </div>
   );
+  function handleLogin() {
+    login(userName, password)
+      .then((data) => {
+        if (!!data) {
+          console.log("Uspjesan login");
+          console.log(data);
+          localStorage.setItem("user", userName);
+          navigate("/home");
+
+          console.log("otiso home");
+          return;
+        }
+      })
+      .catch((error: any) => {
+        console.error("Login failed:", error);
+        alert("Neuspjesan login");
+      });
+  }
 }
 export default Login;
