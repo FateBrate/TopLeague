@@ -1,15 +1,27 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../services/authService";
 import "./Login.css";
-import { log } from "console";
+import { login } from "../../services/authService";
 function Login() {
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  function handleLogin(event: any) {
+    event.preventDefault(); // Prevent form submission
+
+    login(username, password)
+      .then((response) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
+  }
+
   return (
     <div className="container">
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleLogin}>
         <br />
         <label htmlFor="username">Username:</label>
         <input
@@ -17,7 +29,8 @@ function Login() {
           id="username"
           className="form-control control"
           placeholder="Username"
-          onChange={(e) => setUserName(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -25,32 +38,16 @@ function Login() {
           id="password"
           className="form-control control"
           placeholder="Password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <a href="">Forgot password ?</a>
-        <button className="btn btn-primary" onClick={handleLogin}>
+        <a href="">Forgot password?</a>
+        <button className="btn btn-primary" type="submit">
           Login
         </button>
       </form>
     </div>
   );
-  function handleLogin() {
-    login(userName, password)
-      .then((data) => {
-        if (!!data) {
-          console.log("Uspjesan login");
-          console.log(data);
-          localStorage.setItem("user", userName);
-          navigate("/home");
-
-          console.log("otiso home");
-          return;
-        }
-      })
-      .catch((error: any) => {
-        console.error("Login failed:", error);
-        alert("Neuspjesan login");
-      });
-  }
 }
+
 export default Login;
