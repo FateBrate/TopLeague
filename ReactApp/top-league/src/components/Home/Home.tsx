@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
+import SideMenu from "../SideMenu/SideMenu";
 
 function Home() {
-  const user = localStorage.getItem("user");
-
   return (
     <div>
-      <h5>Hello {user}</h5>
+      <SideMenu />
       <Link to="/login">Go to Login</Link>
     </div>
   );
